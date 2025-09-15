@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Project.Data.Entities.Film>
+
+@{
+    ViewData["Title"] = "Films";
+}
+
+<h1>Films List</h1>
+
+<a asp-action="Create" class="btn btn-primary my-2">Add New Film</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:100px;">Poster</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var film in Model)
+        {
+            <tr>
+                <td style="width:100px; text-align:center;">
+                    <div style="width:80px; height:100px; overflow:hidden; margin:auto;">
+                        <img src="@film.PosterUrl"
+                                alt="@film.Title"
+                                style="width:100%; height:100%; object-fit:cover;" />
+                    </div>
+                </td>
+                <td>@film.Title</td>
+                <td>@film.Genre?.Name</td>
+                <td>@film.Year</td>
+                <td>@film.Rating</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@film.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@film.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
