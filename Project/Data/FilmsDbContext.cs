@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Project.Data.Entities;
 
-public class FilmsDbContext : DbContext
+public class FilmsDbContext : IdentityDbContext<ApplicationUser>
 {
     public FilmsDbContext(DbContextOptions<FilmsDbContext> options)
         : base(options) { }

@@ -1,0 +1,62 @@
+﻿@model Project.Data.Entities.Film
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Project.Data.Entities.ApplicationUser> UserManager
+
+@{
+    string userEmail = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        var user = await UserManager.GetUserAsync(User);
+        if (user != null)
+        {
+            userEmail = user.Email;
+        }
+    }
+}
+
+<h2>Cinema Hall</h2>
+<h3>@Model.Title</h3>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-controller="Tickets" asp-action="Buy" method="post">
+    <input type="hidden" name="filmId" value="@Model.Id" />
+
+    <div class="container mt-4">
+        <div class="row">
+            @for (int row = 1; row <= 5; row++)
+            {
+                <div class="d-flex justify-content-center mb-2">
+                    @for (int seat = 1; seat <= 10; seat++)
+                    {
+                        <div class="form-check m-1">
+                            <input type="checkbox"
+                                   class="btn-check"
+                                   id="seat-@row-@seat"
+                                   name="SelectedSeats"
+                                   value="@row-@seat" />
+
+                            <label class="btn btn-outline-primary" for="seat-@row-@seat">
+                                @row-@seat
+                            </label>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="mt-3">
+            <label for="UserEmail">Ваш Email:</label>
+            <input type="email" name="UserEmail" class="form-control" required value="@userEmail" />
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3">Buy Tickets</button>
+    </div>
+</form>

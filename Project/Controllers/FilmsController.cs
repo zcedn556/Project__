@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Data;
 using Project.Data.Entities;
 
 namespace Project.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FilmsController : Controller
     {
         private readonly FilmsDbContext _ctx;
@@ -19,6 +21,7 @@ namespace Project.Controllers
             var model = _ctx.Films.Include(x => x.Genre).ToList();
             return View(model);
         }
+
 
         [HttpGet]
         public IActionResult Create()

@@ -1,0 +1,18 @@
+﻿@model Project.Data.Entities.Film
+
+<div class="card shadow-sm h-100">
+    <img src="@Model.PosterUrl" class="card-img-top" alt="@Model.Title" style="object-fit:cover; height:350px;" />
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title (@Model.Year)</h5>
+        <p class="card-text">
+            <strong>Genre:</strong> @Model.Genre?.Name <br />
+            <strong>Rating:</strong> @Model.Rating
+        </p>
+    <div class="card-footer">
+        <a asp-controller="Tickets" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-success">
+            Buy Tickets
+        </a>
+        <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary">Watch Trailer</a>
+    </div>
+    </div>
+</div>
